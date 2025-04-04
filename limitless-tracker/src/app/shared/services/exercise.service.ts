@@ -9,6 +9,10 @@ export class ExerciseService {
     {
       name: 'Jog',
       duration: 30
+    },
+    {
+      name: 'Push-ups',
+      duration: 30
     }
   ])
 

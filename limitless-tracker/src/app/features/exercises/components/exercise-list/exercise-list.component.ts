@@ -1,11 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { ExerciseService } from '../../../../shared/services/exercise.service';
-import { Exercise } from '../../../../shared/models/exercise.model';
+
 import { ExercisesFormComponent } from "../exercises-form/exercises-form.component";
+import { ExerciseItemComponent } from "../exercise-item/exercise-item.component";
 
 @Component({
   selector: 'app-exercise-list',
-  imports: [ExercisesFormComponent],
+  imports: [ExercisesFormComponent, ExerciseItemComponent],
   templateUrl: './exercise-list.component.html',
   styleUrl: './exercise-list.component.css'
 })
@@ -13,7 +14,5 @@ export class ExerciseListComponent {
   private exerciseService = inject(ExerciseService)
   exercises = this.exerciseService.getExercises()
 
-  removeExerciseHandler(name: string) {
-    this.exerciseService.removeExercise(name)
-  }
+
 }
