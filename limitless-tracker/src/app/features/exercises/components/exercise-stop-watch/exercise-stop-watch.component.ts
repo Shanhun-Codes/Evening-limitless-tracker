@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 
 @Component({
   selector: 'app-exercise-stop-watch',
@@ -7,20 +7,13 @@ import { Component, OnDestroy } from '@angular/core';
   templateUrl: './exercise-stop-watch.component.html',
   styleUrl: './exercise-stop-watch.component.css',
 })
-export class ExerciseStopWatchComponent implements OnDestroy {
+export class ExerciseStopWatchComponent {
+  destroyRef = inject(DestroyRef)
+
   elapsedTime = 0;
   isRunning = false;
   timerId: any;
   logs: {date: Date, elapsedTime: number}[] = []
-
-
-  ngOnDestroy(): void {
-    if (this.timerId) {
-      clearInterval(this.timerId)
-    }
-    console.log("Component destroyed");
-    
-  }
 
   startStopwatchHandler() {
     if (!this.isRunning) {
@@ -30,6 +23,11 @@ export class ExerciseStopWatchComponent implements OnDestroy {
         this.elapsedTime += 1000;
       }, 1000);
     }
+
+    this.destroyRef.onDestroy(() => {
+      console.log("destroyRef Called: ");
+      clearInterval(this.timerId)
+    })
   }
 
   stopStopwatchHandler() {

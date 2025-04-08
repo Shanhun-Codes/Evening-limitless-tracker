@@ -1,11 +1,26 @@
-<form (ngSubmit)="addExerciseHandler()">
-    <div class="form-group">
-        <input name="name" type="text" placeholder="Enter exercise name" [(ngModel)]="name" required>
-    </div>
-    <div class="form-group">
-        <input type="number" name="duration" [(ngModel)]="duration" required>
-    </div>
-    <button class="button-primary" [disabled]="!name || duration <= 0">Add Exercise</button>
+<form #form (submit)="addExerciseHandler(nameInput.value, +durationInput.value)">
+  <div class="form-group">
+    <input
+      name="name"
+      type="text"
+      placeholder="Enter exercise name"
+      #nameInput
+      required
+    />
+  </div>
+  <div class="form-group">
+    <input 
+    type="number" 
+    name="duration" 
+    placeholder="Enter a number"
+    #durationInput
+    required />
+  </div>
+  <button class="button-primary" type="submit">
+    Add Exercise
+  </button>
 
-    <button type="button" (click)="onResetHandler()" class="button-clear">Reset</button>
+  <button type="button" (click)="onResetHandler()" class="button-clear" >
+    Reset
+  </button>
 </form>
